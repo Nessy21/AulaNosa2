@@ -4,6 +4,6 @@
 
     function guadarAlumno($alumno){}
 
-    function eliminarAlumno(){}
+    function eliminarAlumno($alumno){}
 
 ?>
