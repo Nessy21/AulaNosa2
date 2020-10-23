@@ -1,0 +1,46 @@
+<?php
+    class Alumno {
+        //atributos 
+        private $nombre;
+        private $apellidos;
+        private $id;
+        private $fecha_nacimiento;
+
+        //getters y setters
+        public function getNombre(){
+            return $this->nombre;
+        }
+        public function setNombre($nombre){
+            $this->nombre=$nombre;
+        }
+        public function getApellidos(){
+            return $this->apellidos;
+        }
+        public function setApellidos($apellidos){
+            $this->apellidos=$apellidos;
+        }
+        public function getId(){
+            return $this->id;
+        }
+        public function setId($id){
+            $this->id=$id;
+        }
+        public function getFecha_nacimiento(){
+            return $this->fecha_nacimiento;
+        }
+        public function setFecha_nacimiento($fecha_nacimiento){
+            $this->fecha_nacimiento=$fecha_nacimiento;
+        }
+
+        //constructor
+
+        public function __construct($nombre, $apellidos, $id, $fecha_nacimiento){
+            $this->nombre=$nombre;
+            $this->apellidos=$apellidos;
+            $this->id=$id;
+            $this->fecha_nacimiento=$fecha_nacimiento;
+        }
+    } 
+
+
+?>

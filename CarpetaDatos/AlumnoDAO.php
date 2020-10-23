@@ -1,9 +1,15 @@
 <?php 
 
-    function obtenerAlumno($id){}
+    function obtenerAlumno($id){
 
-    function guadarAlumno($alumno){}
+    }
 
-    function eliminarAlumno($alumno){}
+    function guadarAlumno($alumno){
+
+    }
+
+    function eliminarAlumno($alumno){
+        
+    }
 
 ?>
