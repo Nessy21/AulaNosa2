@@ -2,11 +2,11 @@
     include_once "../Carpetamodelo/Usuario.php";
     $login= 'admin';
     $password='1234'; 
-    $usu = new Usuario(5, 'paquito', 'gerlo', 1 );
+    $usu = new Usuario(6, 'borrado jej', 'gerlo', 1 );//modificamos para crear, modificar borrar
     $usuDAO = new UsuarioDAO();//creamos un objeto para poder utilizar las funciones de dentro de la clase
     $usuDAO-> obtenerUsuario($login, $password);
     $usuDAO-> guardarUsuario ($usu);
-
+    $usuDAO-> eliminarUsuario($usu);
     class UsuarioDAO{      
         function crearConexion(){//conexion de php a la bbdd
             $servidorBD = 'localhost';
@@ -33,27 +33,27 @@
         }
 
         function guardarUsuario ($usuario){
+            $id= $usuario -> getId();
             $login = $usuario->getLogin();
             $password = $usuario->getPassword();
             $alumno_id = $usuario -> getAlumno_id();
             $conexion= $this-> crearConexion(); 
-            $id = 5;//prueba para ver si cambia
-            if ($id!=0){// si tiene id -> 0  hacemos update || id no esta definido   
-                $id = $usuario-> setId(5);  //No me cambia el id   //no me hace update
-                $sql = "UPDATE USUARIO SET id='$id' ,login='$login', password='$password', alumno_id='$alumno_id' WHERE id='$id';";
-                $consultaPreparada=$conexion->prepare($sql);//le he puesto un i a bind_param error por demasiados parametros 
-                $consultaPreparada->bind_param("issi", $id, $login, $password, $alumno_id);//error por poner line 41->YA NO
+            
+            if ($id===0){// si tiene id -> 0  hacemos update || id no esta definido   
+               //Insertamos
+               $sql = "INSERT INTO USUARIO( login, password, alumno_id) values ( ?, ?, ?);";//autoincrementales no se pasan
+               $consultaPreparada=$conexion->prepare ($sql);
+               //asignariamos valores a los campos
+               $consultaPreparada ->bind_param("ssi", $login, $password, $alumno_id);
+               $consultaPreparada -> execute();
+               $id = $conexion->insert_id;
+               var_dump($id);
+            }else{
+                $id = $usuario-> getId();
+                $sql = "UPDATE USUARIO SET login=?, password=? WHERE id=?;";
+                $consultaPreparada=$conexion->prepare($sql);
+                $consultaPreparada->bind_param("ssi", $login, $password, $id);
                 $consultaPreparada-> execute();
-                $id = $conexion->insert_id;
-                var_dump($id);
-                //SET login = ? o como 
-
-            }else{//Insertamos
-                $sql = "INSERT INTO USUARIO( login, password, alumno_id) values ( ?, ?, ?);";//autoincrementales no se pasan
-                $consultaPreparada=$conexion->prepare ($sql);
-                //asignariamos valores a los campos
-                $consultaPreparada ->bind_param("ssi", $login, $password, $alumno_id);
-                $consultaPreparada -> execute();
                 $id = $conexion->insert_id;
                 var_dump($id);
             }
@@ -61,11 +61,14 @@
         }
 
         function eliminarUsuario ($usuario){
+            $id= $usuario -> getId();
             $conexion= $this-> crearConexion();
-            $id = $usuario->getId();
-            $sql = "SELECT id, login, password, alumno_id FROM  USUARIO WHERE login=? and password=?;";
-            $sql = "DELETE FROM USUARIO( login, password, alumno_id) where (id=?);";
-
+            //$sql = "SELECT id, login, password, alumno_id FROM  USUARIO WHERE login=? and password=?;";
+            $sql = "DELETE FROM USUARIO where id=?;";
+            $consultaPreparada=$conexion->prepare($sql);
+            $consultaPreparada->bind_param("i", $id);
+            $consultaPreparada-> execute();
+            $conexion->close();
         }
 
     }//class
