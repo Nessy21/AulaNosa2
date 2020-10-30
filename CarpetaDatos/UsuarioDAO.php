@@ -2,11 +2,12 @@
     include_once "../Carpetamodelo/Usuario.php";
     $login= 'admin';
     $password='1234'; 
-    $usu = new Usuario(6, 'borrado jej', 'gerlo', 1 );//modificamos para crear, modificar borrar
+    $usu = new Usuario(0, 'usuario', 'asociado', 3);//modificamos para crear, modificar borrar
+    $user = new Usuario (6, 'borrar jej', 'gerlo', 1);
     $usuDAO = new UsuarioDAO();//creamos un objeto para poder utilizar las funciones de dentro de la clase
     $usuDAO-> obtenerUsuario($login, $password);
     $usuDAO-> guardarUsuario ($usu);
-    $usuDAO-> eliminarUsuario($usu);
+    $usuDAO-> eliminarUsuario($user);
     class UsuarioDAO{      
         function crearConexion(){//conexion de php a la bbdd
             $servidorBD = 'localhost';
