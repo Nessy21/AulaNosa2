@@ -24,9 +24,9 @@
         function obtenerUsuario ($login, $password){
             $conexion = $this -> crearConexion();
             $sql = "SELECT id, login, password, alumno_id FROM  USUARIO WHERE login=? and password=?;";
-            $consultaPreparada=$conexion->prepare ($sql);
+            $consultaPreparada=$conexion->prepare($sql);
             $consultaPreparada-> bind_param("ss", $login, $password);
-            $consultaPreparada->execute();//
+            $consultaPreparada->execute();
             $resultado= $consultaPreparada -> get_result();
             $filas = $resultado->fetch_array();
             $conexion->close();

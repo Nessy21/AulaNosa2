@@ -1,10 +1,8 @@
 <?php
     include_once "../CarpetaModelo/Autenticacion.php";
-    
- //no entraba porque faltaba la class
 
-    $user = $_POST['user'];//lo que viene del formulario
-    $password = $_POST['password'];//
+        $user = $_POST['user'];//
+        $password = $_POST['password'];//
 
         //llamamos a la funcion autenticar usuario (pero esto ya lo hace usuDAO)
         $mc=new Autenticacion();//no va a ir porque el Autenticacion tiene errores

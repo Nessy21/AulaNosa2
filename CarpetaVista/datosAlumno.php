@@ -11,7 +11,7 @@
         session_start();
         if (isset($_SESSION['datosUser'])){ 
             $datos = $_SESSION['datosUser'];
-            //sacamos los datos del user
+            //sacamos los datos del Usuario
             echo "User: ";
             echo $datos->getLogin();
             echo "<br>";
@@ -24,11 +24,10 @@
             // echo "Fecha de nacimiento : ";
             // echo $datos->getFecha_nacimiento();  
         }
-      
         
     ?>
-    <!-- <form action="desloguear.php" method="POST">
+    <form action="desloguear.php" method="POST">
         <input type="submit" value="Desloguear">
-    </form> -->
+    </form> 
 </body>
 </html>

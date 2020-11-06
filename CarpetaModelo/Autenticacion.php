@@ -7,8 +7,8 @@
 
         function autenticarUsuario($user, $password){
             
-            $user = new UsuarioDAO();
-            $userGuardado=$user-> obtenerUsuario($user, $password);
+            $userDAO = new UsuarioDAO();
+            $userGuardado=$userDAO-> obtenerUsuario($user, $password);
 
             if ($userGuardado!=false){
                 return $userGuardado;
