@@ -3,7 +3,7 @@
     $f = new DateTime ('1997-08-26'); 
     $al = new Alumno (3, 'Alumno', 'Rodriguez', $f);//crear objeto tipo fecha 
     $alDAO = new AlumnoDAO();//creamos un objeto para poder utilizar las funciones de dentro de la clase
-    $id = 2;
+    $id = 2;//.
     $alDAO-> obtenerAlumno($id);
     $alDAO-> guardarAlumno($al);
     $alu = new Alumno (3, "", "", 0);//si tiene usuarios asociados no borra
