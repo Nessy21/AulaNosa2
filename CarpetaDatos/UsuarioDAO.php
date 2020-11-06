@@ -1,14 +1,14 @@
 <?php
     include_once "../Carpetamodelo/Usuario.php";
-    $login= 'admin';
-    $password='1234'; 
-    $usu = new Usuario(0, 'usuario', 'asociado', 3);//modificamos para crear, modificar borrar
-    $user = new Usuario (6, 'borrar jej', 'gerlo', 1);
-    $usuDAO = new UsuarioDAO();//creamos un objeto para poder utilizar las funciones de dentro de la clase
-    $usuDAO-> obtenerUsuario($login, $password);
-    $usuDAO-> guardarUsuario ($usu);
-    $usuDAO-> eliminarUsuario($user);
-    class UsuarioDAO{      
+    // $login= 'admin';
+    // $password='1234';
+    // // $usu = new Usuario(0, 'usuario', 'asociado', 3);//modificamos para crear, modificar borrar
+    // $user = new Usuario (6, 'borrar jej', 'gerlo', 1);
+    // $usuDAO = new UsuarioDAO();//creamos un objeto para poder utilizar las funciones de dentro de la clase
+    // $usuDAO-> obtenerUsuario($login, $password);
+    // $usuDAO-> guardarUsuario ($usu);
+    // $usuDAO-> eliminarUsuario($user);
+    class UsuarioDAO{
         function crearConexion(){//conexion de php a la bbdd
             $servidorBD = 'localhost';
             $usuarioBD = 'root';
@@ -20,17 +20,24 @@
             }
             return $con;
         }
-        
+
         function obtenerUsuario ($login, $password){
             $conexion = $this -> crearConexion();
             $sql = "SELECT id, login, password, alumno_id FROM  USUARIO WHERE login=? and password=?;";
             $consultaPreparada=$conexion->prepare ($sql);
             $consultaPreparada-> bind_param("ss", $login, $password);
-            $consultaPreparada->execute();
+            $consultaPreparada->execute();//
             $resultado= $consultaPreparada -> get_result();
             $filas = $resultado->fetch_array();
-            var_dump ($filas);
             $conexion->close();
+            if($filas!=null){
+                $usu = new Usuario($filas[0], $filas[1], $filas[2], $filas[3]);
+                return $usu;
+            }else{
+                return false;
+            }
+            // var_dump ($filas);
+            
         }
 
         function guardarUsuario ($usuario){
@@ -38,9 +45,9 @@
             $login = $usuario->getLogin();
             $password = $usuario->getPassword();
             $alumno_id = $usuario -> getAlumno_id();
-            $conexion= $this-> crearConexion(); 
-            
-            if ($id===0){// si tiene id -> 0  hacemos update || id no esta definido   
+            $conexion= $this-> crearConexion();
+
+            if ($id===0){// si tiene id -> 0  hacemos update || id no esta definido
                //Insertamos
                $sql = "INSERT INTO USUARIO( login, password, alumno_id) values ( ?, ?, ?);";//autoincrementales no se pasan
                $consultaPreparada=$conexion->prepare ($sql);
@@ -73,6 +80,6 @@
         }
 
     }//class
-    
+
 
 ?>
