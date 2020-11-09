@@ -15,7 +15,7 @@
             $servidorBD = 'localhost';
             $usuarioBD = 'root';
             $password = '';
-            $bd = 'AulaNosa';
+            $bd = 'AulaNosa2';
             $con = new mysqli ($servidorBD, $usuarioBD, $password, $bd);
             if ($con->connect_error){
                 echo ('Problemas conectando con la BD<br>'.$con->connect_error);
@@ -34,7 +34,7 @@
             var_dump ($filas);
             $conexion->close();
         }
-    
+
         function guardarAlumno($alumno){
             $id = $alumno -> getId();
             $nombre = $alumno->getNombre();
