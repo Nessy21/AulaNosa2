@@ -2,7 +2,7 @@
     include_once "../CarpetaDatos/AlumnoDAO.php";
    obtenerListadoAlumnos();
     //guardarAlumno() 
-    $al = new Alumno ();//meterle parametros 
+    $al = new Alumno ();//meterle parámetros 
 
     
     function obtenerListadoAlumnos (){//retorna todos los Alumnos de la bbdd
