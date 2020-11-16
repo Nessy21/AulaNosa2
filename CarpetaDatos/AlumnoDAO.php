@@ -1,13 +1,14 @@
-<?php 
+<?php
     include_once "../Carpetamodelo/Alumno.php";
-    $f = new DateTime ('1997-08-26'); 
-    $al = new Alumno (3, 'Alumno', 'Rodriguez', $f);//crear objeto tipo fecha 
+    $f = new DateTime ('1997-08-26');
+    $al = new Alumno (3, 'Alumno', 'Rodriguez', $f);//crear objeto tipo fecha
     $alDAO = new AlumnoDAO();//creamos un objeto para poder utilizar las funciones de dentro de la clase
-    $id = 2;//.
-    $alDAO-> obtenerAlumno($id);
+    $id = 2;    
+    // $alDAO-> obtenerAlumno($id);
     $alDAO-> guardarAlumno($al);
     $alu = new Alumno (3, "", "", 0);//si tiene usuarios asociados no borra
-    $alDAO-> eliminarAlumno($alu);
+    // $alDAO-> eliminarAlumno($alu);
+    $alDAO-> obtenerListadoAlumnos();
 
     class AlumnoDAO{
 
@@ -39,9 +40,9 @@
             $id = $alumno -> getId();
             $nombre = $alumno->getNombre();
             $apellidos = $alumno->getApellidos();
-            $f = $alumno->getFecha_nacimiento();//
-            $conexion= $this-> crearConexion(); 
-            if ($id===0){// si tiene id -> 0  hacemos update || id no esta definido   
+            $f = $alumno->getFecha_nacimiento();
+            $conexion=  $this-> crearConexion();
+            if ($id===0){// si tiene id -> 0  hacemos update || id no esta definido
                 //Insertamos
                 $sql = "INSERT INTO ALUMNO( nombre, apellidos, fecha_nacimiento) values ( ?, ?, ?);";//autoincrementales no se pasan
                 $consultaPreparada=$conexion->prepare ($sql);
@@ -65,8 +66,8 @@
 
 
         }
-    
-        function eliminarAlumno($alumno){
+
+        function eliminarAlumno($alumno){//eliminar alumnos
             $id= $alumno -> getId();
             $conexion= $this-> crearConexion();
             $sql = "DELETE FROM ALUMNO where id=?;";
@@ -75,31 +76,21 @@
             $consultaPreparada-> execute();
             $conexion->close();
         }
-    
-        function listadoAlumnos(){
-            $conexion=$this->crearConexion();
-            $sql="SELECT id, nombre, apellidos, fecha_nacimiento FROM  ALUMNO ;";
-            $consultaPreparada=$conexion->prepare($sql);
+
+        function obtenerListadoAlumnos(){//devolver todos los usuarios de la bbdd
+            $conexion = $this -> crearConexion();
+            $sql = "SELECT id, nombre, apellidos, fecha_nacimiento FROM  ALUMNO;";
+            $consultaPreparada=$conexion->prepare ($sql);
             $consultaPreparada->execute();
-            $resultado=$consultaPreparada->get_result();
-            $filas=$resultado->fetch_array(); //fetch array devuelve array o falso
-            $i=0;
-            var_dump($filas);
-            do{//$filas != false
-                //devuelve un array con los resultados de la fila
-                $listaAlumnos [$i];
-                $i++;
-                var_dump($listaAlumnos[$i]);
-                //$al = new Alumno ($fila[1],...);
-                //$listaAlumnos[i] = $al;
+            $resultado = $consultaPreparada->get_result();
+            $filas = $resultado->fetch_array();
+            while($filas = $resultado->fetch_array()){
+                //el primero??
+                var_dump ($filas);
             }
-            while ($filas = $resultado->fetch_array());     
             $conexion->close();
         }
-
-
-
-
+        
 
 
     }//class
