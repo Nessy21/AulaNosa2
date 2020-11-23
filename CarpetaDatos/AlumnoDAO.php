@@ -1,13 +1,13 @@
 <?php
-    include_once "../Carpetamodelo/Alumno.php";
+    include_once "../CarpetaModelo/Alumno.php";
     $f = new DateTime ('1997-08-26');
     $al = new Alumno (3, 'Alumno', 'Rodriguez', $f);//crear objeto tipo fecha
     $alDAO = new AlumnoDAO();//creamos un objeto para poder utilizar las funciones de dentro de la clase
     $id = 2;    
-    // $alDAO-> obtenerAlumno($id);
-    $alDAO-> guardarAlumno($al);
+    //$alDAO-> obtenerAlumno($id);
+    //$alDAO-> guardarAlumno($al);
     $alu = new Alumno (3, "", "", 0);//si tiene usuarios asociados no borra
-    // $alDAO-> eliminarAlumno($alu);
+    //$alDAO-> eliminarAlumno($alu);
     $alDAO-> obtenerListadoAlumnos();
 
     class AlumnoDAO{
@@ -41,7 +41,7 @@
             $nombre = $alumno->getNombre();
             $apellidos = $alumno->getApellidos();
             $f = $alumno->getFecha_nacimiento();
-            $conexion=  $this-> crearConexion();
+            $conexion=$this-> crearConexion();// error aqui, que se usa this cuando no hay un objeto 
             if ($id===0){// si tiene id -> 0  hacemos update || id no esta definido
                 //Insertamos
                 $sql = "INSERT INTO ALUMNO( nombre, apellidos, fecha_nacimiento) values ( ?, ?, ?);";//autoincrementales no se pasan
