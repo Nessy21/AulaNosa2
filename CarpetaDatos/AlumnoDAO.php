@@ -8,7 +8,7 @@
     //$alDAO-> guardarAlumno($al);
     $alu = new Alumno (3, "", "", 0);//si tiene usuarios asociados no borra
     //$alDAO-> eliminarAlumno($alu);
-    $alDAO-> obtenerListadoAlumnos();
+    //$alDAO-> obtenerListadoAlumnos();
 
     class AlumnoDAO{
 
@@ -41,8 +41,8 @@
             $nombre = $alumno->getNombre();
             $apellidos = $alumno->getApellidos();
             $f = $alumno->getFecha_nacimiento();
-            $conexion=$this-> crearConexion();// error aqui, que se usa this cuando no hay un objeto 
-            if ($id===0){// si tiene id -> 0  hacemos update || id no esta definido
+            $conexion=$this-> crearConexion();
+            if ($id===0){// si tiene id -> 0  hacemos nuevo || id no esta definido
                 //Insertamos
                 $sql = "INSERT INTO ALUMNO( nombre, apellidos, fecha_nacimiento) values ( ?, ?, ?);";//autoincrementales no se pasan
                 $consultaPreparada=$conexion->prepare ($sql);
@@ -51,6 +51,8 @@
                 $consultaPreparada->bind_param("sss", $nombre, $apellidos, $fecha);
                 $consultaPreparada->execute();
                 $id = $conexion->insert_id;
+                //tenemos que actualizar el id de altaAlumno (que será cero para entrar en insert) e igualarlo con el id autoincremental de la bbdd
+                $alumno->setId($id);
                 var_dump($id);
             }else{
                 $id = $alumno-> getId();
@@ -78,20 +80,22 @@
         }
 
         function obtenerListadoAlumnos(){//devolver todos los usuarios de la bbdd
-            $conexion = $this -> crearConexion();
+            $conexion = $this->crearConexion();
             $sql = "SELECT id, nombre, apellidos, fecha_nacimiento FROM  ALUMNO;";
             $consultaPreparada=$conexion->prepare ($sql);
             $consultaPreparada->execute();
             $resultado = $consultaPreparada->get_result();
             $filas = $resultado->fetch_array();
+            var_dump ($filas);//con esto me muestra el primero (a ver si se soluciona con un for)
             while($filas = $resultado->fetch_array()){
-                //el primero??
+                //no muestra el primero 
                 var_dump ($filas);
+            }
+            //habrá que coger alumno por alumno y sacar los datos de id, nombre, apellidos, fecha de nacimiento
+            for ($i = 0; $i < ){
+                
             }
             $conexion->close();
         }
-        
-
-
     }//class
 ?>

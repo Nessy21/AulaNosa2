@@ -9,19 +9,24 @@
     <?php //mostrar todos los alumnos en una tabla
         include_once "../CarpetaDatos/AlumnoDAO.php";
         $alDAO = new AlumnoDAO();
-        $alDAO->obtenerListadoAlumnos();
+        $alDAO->obtenerListadoAlumnos(); // muestra todos los alumnos (menos el primero no sé por qué)
 
 
 
     ?>
 
-    <table><!--encabezado de la tabla-->
-        <th>ID</th>
-        <th>Nombre</th>
-        <th>Apellidos</th>
-        <th>Fecha de nacimiento</th>
+    <table>
+        <tr>
+            <th>ID</th><!--encabezado de la tabla-->
+            <th>Nombre</th>
+            <th>Apellidos</th>
+            <th>Fecha de nacimiento</th>
+        </tr>
+        
         <?php//sacar datos que hay en la bbdd
-            
+            echo '<tr>';
+            echo '<td>' $filas['id'] '</td>' '<td>' $filas['nombre'] '</td>' '<td>' $filas['apellidos'] '</td>' '<td>' $filas['fecha_nacimiento'] '</td>';
+            echo '</tr>';
 
             
             
