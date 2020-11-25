@@ -24,7 +24,7 @@
         </tr>
         
         <?php//sacar datos que hay en la bbdd
-            echo '<tr>';
+            echo '<tr>';//alumnoDAO -> obtenerListadoAlumnos arreglar 
             echo '<td>' $filas['id'] '</td>' '<td>' $filas['nombre'] '</td>' '<td>' $filas['apellidos'] '</td>' '<td>' $filas['fecha_nacimiento'] '</td>';
             echo '</tr>';
 

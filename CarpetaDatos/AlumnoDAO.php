@@ -86,15 +86,16 @@
             $consultaPreparada->execute();
             $resultado = $consultaPreparada->get_result();
             $filas = $resultado->fetch_array();
-            var_dump ($filas);//con esto me muestra el primero (a ver si se soluciona con un for)
-            while($filas = $resultado->fetch_array()){
-                //no muestra el primero 
-                var_dump ($filas);
-            }
             //habrá que coger alumno por alumno y sacar los datos de id, nombre, apellidos, fecha de nacimiento
-            for ($i = 0; $i < ){
+            for ($i=0; $i<=count($filas); $i++){//warning
+                var_dump ($filas['id'], $filas['nombre'], $filas['apellidos'], $filas['fecha_nacimiento']);// con esto me muestra el primero
+                while($filas = $resultado->fetch_array()){
+                //no muestra el primero
+                var_dump ($filas['id'], $filas['nombre'], $filas['apellidos'], $filas['fecha_nacimiento']);//se muestra un int(0) pero no se de que  
+                }
+                //sale un int(con un numero), pero solo salen pares 
                 
-            }
+            }//for
             $conexion->close();
         }
     }//class
