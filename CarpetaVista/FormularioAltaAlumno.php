@@ -33,10 +33,9 @@
         <input type="submit" value="Enviar">
     </form>
     
-    <?php  //idduno
+    <?php
     
-
-
+ 
 
 
 

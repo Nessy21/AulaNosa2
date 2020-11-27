@@ -6,14 +6,7 @@
     <title>Listado de alumnos</title>
 </head>
 <body>
-    <?php //mostrar todos los alumnos en una tabla
-        include_once "../CarpetaDatos/AlumnoDAO.php";
-        $alDAO = new AlumnoDAO();
-        $alDAO->obtenerListadoAlumnos(); // muestra todos los alumnos (menos el primero no sé por qué)
-
-
-
-    ?>
+   
 
     <table>
         <tr>
@@ -23,20 +16,18 @@
             <th>Fecha de nacimiento</th>
         </tr>
         
-        <?php//sacar datos que hay en la bbdd
-            echo '<tr>';//alumnoDAO -> obtenerListadoAlumnos arreglar 
-            echo '<td>' $filas['id'] '</td>' '<td>' $filas['nombre'] '</td>' '<td>' $filas['apellidos'] '</td>' '<td>' $filas['fecha_nacimiento'] '</td>';
-            echo '</tr>';
-
-            
-            
-            
+        <?php
+        //sacar datos que hay en la bbdd
+            //mostrar todos los alumnos en una tabla
+            include_once "../CarpetaDatos/AlumnoDAO.php";
+            $alDAO = new AlumnoDAO();
+            $listaAlumnos= $alDAO->obtenerListadoAlumnos(); 
+                foreach($listaAlumnos as $al){//recorres $listaAlumnos
+                    echo '<tr>';//alumnoDAO -> obtenerListadoAlumnos  
+                    echo '<td>'. $al->getId() .'</td><td>' .$al->getNombre(). '</td><td>'. $al->getApellidos(). '</td><td>' .$al->getFecha_nacimiento(). '</td>';
+                    echo '</tr>'; 
+                }  
         ?>
-
-
-
-
-
     </table>
 
     

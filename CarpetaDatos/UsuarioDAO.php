@@ -2,9 +2,9 @@
     include_once "../Carpetamodelo/Usuario.php";
     // $login= 'admin';
     // $password='1234';
-    // // $usu = new Usuario(0, 'usuario', 'asociado', 3);//modificamos para crear, modificar borrar
+    $usu = new Usuario(4, 'usuario', 'asociado', 3);//modificamos para crear, modificar borrar
     // $user = new Usuario (6, 'borrar jej', 'gerlo', 1);
-    // $usuDAO = new UsuarioDAO();//creamos un objeto para poder utilizar las funciones de dentro de la clase
+    $usuDAO = new UsuarioDAO();//creamos un objeto para poder utilizar las funciones de dentro de la clase
     // $usuDAO-> obtenerUsuario($login, $password);
     // $usuDAO-> guardarUsuario ($usu);
     // $usuDAO-> eliminarUsuario($user);
@@ -47,7 +47,7 @@
             $alumno_id = $usuario -> getAlumno_id();
             $conexion= $this-> crearConexion();
 
-            if ($id===0){// si tiene id -> 0  hacemos update || id no esta definido
+            if ($id===0){// si tiene id -> 0  creamos nuevo|| id no esta definido
                //Insertamos
                $sql = "INSERT INTO USUARIO( login, password, alumno_id) values ( ?, ?, ?);";//autoincrementales no se pasan
                $consultaPreparada=$conexion->prepare ($sql);
@@ -55,7 +55,7 @@
                $consultaPreparada ->bind_param("ssi", $login, $password, $alumno_id);
                $consultaPreparada -> execute();
                $id = $conexion->insert_id;
-               var_dump($id);
+               var_dump($id);//creado con éxito
             }else{
                 $id = $usuario-> getId();
                 $sql = "UPDATE USUARIO SET login=?, password=? WHERE id=?;";
@@ -71,7 +71,7 @@
         function eliminarUsuario ($usuario){
             $id= $usuario -> getId();
             $conexion= $this-> crearConexion();
-            //$sql = "SELECT id, login, password, alumno_id FROM  USUARIO WHERE login=? and password=?;";
+
             $sql = "DELETE FROM USUARIO where id=?;";
             $consultaPreparada=$conexion->prepare($sql);
             $consultaPreparada->bind_param("i", $id);

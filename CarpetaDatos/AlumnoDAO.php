@@ -45,7 +45,7 @@
             if ($id===0){// si tiene id -> 0  hacemos nuevo || id no esta definido
                 //Insertamos
                 $sql = "INSERT INTO ALUMNO( nombre, apellidos, fecha_nacimiento) values ( ?, ?, ?);";//autoincrementales no se pasan
-                $consultaPreparada=$conexion->prepare ($sql);
+                $consultaPreparada=$conexion->prepare($sql);
                 //asignariamos valores a los campos
                 $fecha = $f->format('Y-m-d');
                 $consultaPreparada->bind_param("sss", $nombre, $apellidos, $fecha);
@@ -53,7 +53,7 @@
                 $id = $conexion->insert_id;
                 //tenemos que actualizar el id de altaAlumno (que será cero para entrar en insert) e igualarlo con el id autoincremental de la bbdd
                 $alumno->setId($id);
-                var_dump($id);
+                var_dump($id);//creado con éxito
             }else{
                 $id = $alumno-> getId();
                 $sql = "UPDATE ALUMNO SET nombre=?, apellidos=?, fecha_nacimiento=? WHERE id=?;";
@@ -82,21 +82,19 @@
         function obtenerListadoAlumnos(){//devolver todos los usuarios de la bbdd
             $conexion = $this->crearConexion();
             $sql = "SELECT id, nombre, apellidos, fecha_nacimiento FROM  ALUMNO;";
-            $consultaPreparada=$conexion->prepare ($sql);
+            $consultaPreparada=$conexion->prepare($sql);
             $consultaPreparada->execute();
             $resultado = $consultaPreparada->get_result();
-            $filas = $resultado->fetch_array();
-            //habrá que coger alumno por alumno y sacar los datos de id, nombre, apellidos, fecha de nacimiento
-            for ($i=0; $i<=count($filas); $i++){//warning
-                var_dump ($filas['id'], $filas['nombre'], $filas['apellidos'], $filas['fecha_nacimiento']);// con esto me muestra el primero
-                while($filas = $resultado->fetch_array()){
-                //no muestra el primero
-                var_dump ($filas['id'], $filas['nombre'], $filas['apellidos'], $filas['fecha_nacimiento']);//se muestra un int(0) pero no se de que  
-                }
-                //sale un int(con un numero), pero solo salen pares 
-                
-            }//for
+            $listaAlumnos= array();//creamos un array donde guardaremos los alumnos
+            while($filas = $resultado->fetch_array()) //filas es un solo alumno 
+            {
+               //($id, $nombre, $apellidos, $fecha_nacimiento)
+                $al= new Alumno( $filas['id'], $filas['nombre'], $filas['apellidos'], $filas['fecha_nacimiento']);
+                $listaAlumnos[]=$al;//añadimos el alumno 
+            }
             $conexion->close();
+            
+            return $listaAlumnos;
         }
     }//class
 ?>
