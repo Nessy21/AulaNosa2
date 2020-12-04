@@ -12,11 +12,10 @@
     
 
     $al = new Alumno(0, $nombre, $apellidos, new DateTime($fecha_Nac));// id 0 para que cree el alumno
-    $serv = new ServicioAlumnos;
-    
-    //
+ 
+
             
-    $usu = new Usuario (0, $user, $password, $alu->getId());//falta poner alumno_id-> 
+    $usu = new Usuario (0, $user, $password, $al->getId());//falta poner alumno_id-> 
     $serv = new ServicioAlumnos;
     $serv-> altaAlUsu($al, $usu);
 

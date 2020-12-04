@@ -1,13 +1,13 @@
 <?php
     include_once "../CarpetaModelo/Alumno.php";
     include_once "../CarpetaModelo/Usuario.php";
-    $f = new DateTime ('1997-08-26');
-    $al = new Alumno (3, 'Alumno', 'Rodriguez', $f);//crear objeto tipo fecha
-    $alDAO = new AlumnoDAO();//creamos un objeto para poder utilizar las funciones de dentro de la clase
-    $id = 2;
+    //$f = new DateTime ('1997-08-26');
+    //$al = new Alumno (3, 'Alumno', 'Rodriguez', $f);//crear objeto tipo fecha
+    //$alDAO = new AlumnoDAO();//creamos un objeto para poder utilizar las funciones de dentro de la clase
+    //$id = 2;
     //$alDAO-> obtenerAlumno($id);
     //$alDAO-> guardarAlumno($al);
-    $alu = new Alumno (3, "", "", 0);//si tiene usuarios asociados no borra
+   // $alu = new Alumno (3, "", "", 0);//si tiene usuarios asociados no borra
     //$alDAO-> eliminarAlumno($alu);
     //$alDAO-> obtenerListadoAlumnos();
 
@@ -99,8 +99,8 @@
         }
 
         function altaAlUsu($al, $usu){
-            $usuDAO = new UsuarioDAO();
-            $alDAO = new AlumnoDAO();
+           // $usuDAO = new UsuarioDAO();
+            //$alDAO = new AlumnoDAO();
             try{
                 $conexion=$this->crearConexion();
                 $conexion->autocommit(false);
@@ -118,14 +118,15 @@
                 $fecha = $f->format('Y-m-d');
                 $consultaPreparada->bind_param("sss", $nombre, $apellidos, $fecha);
                 $consultaPreparada->execute();
-                $id = $conexion->insert_id;
+                $idAlumno = $conexion->insert_id;
+                $al->setId($idAlumno);
 
                 //insertar usuario
 
                 $id= $usu->getId();
                 $login = $usu->getLogin();
                 $password = $usu->getPassword();
-                $alumno_id = $usu->getAlumno_id();
+                $alumno_id = $idAlumno; //$usu->getAlumno_id();
                 $sql = "INSERT INTO USUARIO(login, password, alumno_id) values ( ?, ?, ?);";//autoincrementales no se pasan
                 $consultaPreparada=$conexion->prepare ($sql);
                 //asignariamos valores a los campos
