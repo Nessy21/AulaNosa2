@@ -1,9 +1,10 @@
 <?php
     include_once "../CarpetaModelo/Alumno.php";
+    include_once "../CarpetaModelo/Usuario.php";
     $f = new DateTime ('1997-08-26');
     $al = new Alumno (3, 'Alumno', 'Rodriguez', $f);//crear objeto tipo fecha
     $alDAO = new AlumnoDAO();//creamos un objeto para poder utilizar las funciones de dentro de la clase
-    $id = 2;    
+    $id = 2;
     //$alDAO-> obtenerAlumno($id);
     //$alDAO-> guardarAlumno($al);
     $alu = new Alumno (3, "", "", 0);//si tiene usuarios asociados no borra
@@ -96,5 +97,49 @@
             
             return $listaAlumnos;
         }
+
+        function altaAlUsu($al, $usu){
+            $usuDAO = new UsuarioDAO();
+            $alDAO = new AlumnoDAO();
+            try{
+                $conexion=$this->crearConexion();
+                $conexion->autocommit(false);
+                $conexion->begin_Transaction();
+
+                //insertar alumno (lastinsertid )
+
+                $id = $al -> getId();
+                $nombre = $al->getNombre();
+                $apellidos = $al->getApellidos();
+                $f = $al->getFecha_nacimiento();
+                $sql = "INSERT INTO ALUMNO( nombre, apellidos, fecha_nacimiento) values ( ?, ?, ?);";//autoincrementales no se pasan
+                $consultaPreparada=$conexion->prepare($sql);
+                //asignariamos valores a los campos
+                $fecha = $f->format('Y-m-d');
+                $consultaPreparada->bind_param("sss", $nombre, $apellidos, $fecha);
+                $consultaPreparada->execute();
+                $id = $conexion->insert_id;
+
+                //insertar usuario
+
+                $id= $usu->getId();
+                $login = $usu->getLogin();
+                $password = $usu->getPassword();
+                $alumno_id = $usu->getAlumno_id();
+                $sql = "INSERT INTO USUARIO(login, password, alumno_id) values ( ?, ?, ?);";//autoincrementales no se pasan
+                $consultaPreparada=$conexion->prepare ($sql);
+                //asignariamos valores a los campos
+                $consultaPreparada->bind_param("ssi", $login, $password, $alumno_id);
+                $consultaPreparada->execute();
+                $id = $conexion->insert_id;
+
+                $conexion->commit();
+            }catch(Exception $e){
+                $conexion -> rollback();
+            }
+
+        }
+
+
     }//class
 ?>

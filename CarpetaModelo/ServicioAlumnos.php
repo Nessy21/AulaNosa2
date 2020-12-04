@@ -6,7 +6,7 @@
     // $f = new DateTime ('1998-10-02');//prueba, despues borrar esto, cuando hagamos 
     // $al = new Alumno (4, "Jaime", "Martinez", $f);//con parámetros
     $alDAO =  ServicioAlumnos::guardarAlumno($al);//Específicamos que llamamos a guardarAlumno de servicioAlumnos 
-    $usuDAO = ServicioAlumnos::guardarUsuario($usu);
+    $alDAO =  ServicioAlumnos::altaAlUsu($al, $usu);
     class ServicioAlumnos{
         
         function guardarAlumno($al){//recibe tipo alumno y lo crea en bbdd mediante el metodo del DAO
@@ -14,14 +14,23 @@
             $alDAO->guardarAlumno($al);
         }
 
-        function guardarUsuario($usu){
-            $usuDAO = new UsuarioDAO();
-            $usuDAO->guardarUsuario($usu);
-            // tener en cuenta:
-            //● Que no exista ya un usuario dado de alta con el login dado.
-            
-            //● Que deberá darse de alta el Alumno y su Usuario de forma transaccional.
+
+      
+        function altaAlUsu($al, $usu){
+            $alDAO = new AlumnoDAO();
+           $variable = $alDAO->altaAlUsu($al, $usu);
+           return $variable;
         }
 
+        function usuarioExistente($usu){ //comprobación uno por uno en la bbdd//
+            $usuDAO = new UsuarioDAO();
+            if(isset($login)){//recorrer todos los login y si existe da error
+                    echo "El nombre de usuario ya existe. Vuelva a intentarlo con otro alias.";
+            }else{
+                    $usuDAO->guardarUsuario($usu);
+            }
+        }
+    
+        
     }//class
 ?>

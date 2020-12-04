@@ -11,16 +11,14 @@
     $fecha_Nac=$_POST['fecha_Nac'];
     
 
-    $alu = new Alumno(0, $nombre, $apellidos, new DateTime($fecha_Nac));// id 0 para que cree el alumno
+    $al = new Alumno(0, $nombre, $apellidos, new DateTime($fecha_Nac));// id 0 para que cree el alumno
     $serv = new ServicioAlumnos;
-    $serv->guardarAlumno($alu);
-
-
+    
     //
             
-    $usu = new Usuario (0, $user, $password, $alu->getId());//falta poner alumno_id->  seteada ya? 
+    $usu = new Usuario (0, $user, $password, $alu->getId());//falta poner alumno_id-> 
     $serv = new ServicioAlumnos;
-    $serv-> guardarUsuario($usu);
+    $serv-> altaAlUsu($al, $usu);
 
 
 ?>

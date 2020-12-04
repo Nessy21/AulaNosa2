@@ -49,7 +49,7 @@
 
             if ($id===0){// si tiene id -> 0  creamos nuevo|| id no esta definido
                //Insertamos
-               $sql = "INSERT INTO USUARIO( login, password, alumno_id) values ( ?, ?, ?);";//autoincrementales no se pasan
+               $sql = "INSERT INTO USUARIO(login, password, alumno_id) values ( ?, ?, ?);";//autoincrementales no se pasan
                $consultaPreparada=$conexion->prepare ($sql);
                //asignariamos valores a los campos
                $consultaPreparada ->bind_param("ssi", $login, $password, $alumno_id);
@@ -71,7 +71,6 @@
         function eliminarUsuario ($usuario){
             $id= $usuario -> getId();
             $conexion= $this-> crearConexion();
-
             $sql = "DELETE FROM USUARIO where id=?;";
             $consultaPreparada=$conexion->prepare($sql);
             $consultaPreparada->bind_param("i", $id);

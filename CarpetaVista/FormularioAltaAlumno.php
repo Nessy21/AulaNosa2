@@ -12,10 +12,10 @@
         <fieldset>
             <legend>Alumno</legend>
             <label for="user">Nombre:</label>
-            <input type="text" name="nombre" id="nombre" placeholder="Introduce tu nombre...">
+            <input type="text" name="nombre" id="nombre" placeholder="Introduce tu nombre..." required>
             <br>
             <label for="apellido">Apellido:</label>
-            <input type="text" name="apellidos" id="apellidos" placeholder="Introduce tu apellidos...">
+            <input type="text" name="apellidos" id="apellidos" placeholder="Introduce tu apellidos..." required>
             <br><label for="fecha_Nac">Fecha de nacimiento:</label>
             <input type="date" name="fecha_Nac" id="fecha_Nac">
             <br>
@@ -24,10 +24,10 @@
             <legend>Datos usuario</legend>
             
             <label for="user">Usuario:</label>
-            <input type="text" name="user" id="user" placeholder="Introduce tu usuario...">
+            <input type="text" name="user" id="user" placeholder="Introduce tu usuario..." required>
             <br>
             <label for="pwd">Contraseña:</label>
-            <input type="password" name="password" id="password" placeholder="Introduce la contraseña...">
+            <input type="password" name="password" id="password" placeholder="Introduce la contraseña..." required>
             <br>
         </fieldset>
         <input type="submit" value="Enviar">
@@ -35,7 +35,7 @@
     
     <?php
     
- 
+   
 
 
 
