@@ -35,11 +35,18 @@
     </style>
 </head>
 <body>
-   
+
+    <header>
+        <a href="login.php">Login</a><!--funciona cuando no estas logueado. Si lo estas, te lleva a datos-->
+        <a href="ListadoAlumnos.php">Listado alumnos</a>
+        <a href="FormularioAltaAlumno.php">Formulario alta alumno</a>
+        <a href="datosAlumno.php">Datos</a>
+        <a href="exportacionAlumnos.php">Exportar a XML</a>
+    </header>
     <div>
         <table>
-            <tr>
-                <th>ID</th><!--encabezado de la tabla-->
+            <tr><!--encabezado de la tabla-->
+                <th>ID</th>
                 <th>Nombre</th>
                 <th>Apellidos</th>
                 <th>Fecha de nacimiento</th>
@@ -52,8 +59,9 @@
                 $alDAO = new AlumnoDAO();
                 $listaAlumnos= $alDAO->obtenerListadoAlumnos(); 
                 foreach($listaAlumnos as $al){//recorres $listaAlumnos
-                    echo '<tr>';//alumnoDAO -> obtenerListadoAlumnos  
-                    echo '<td>'. $al->getId() .'</td><td>' .$al->getNombre(). '</td><td>'. $al->getApellidos(). '</td><td>' .$al->getFecha_nacimiento(). '</td>';
+                    $idAlumno=$al->getId();
+                    echo '<tr>';  
+                    echo '<td>'. $al->getId() ."</td><td><a href='FormularioAltaAlumno.php?id=$idAlumno'>" .$al->getNombre(). '</a></td><td>'. $al->getApellidos(). '</td><td>' .$al->getFecha_nacimiento(). '</td>';
                     echo '</tr>'; 
                 }  
             ?>

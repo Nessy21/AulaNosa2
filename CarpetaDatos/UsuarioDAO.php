@@ -56,7 +56,7 @@
                $consultaPreparada ->bind_param("ssi", $login, $password, $alumno_id);
                $consultaPreparada -> execute();
                $id = $conexion->insert_id;
-               var_dump($id);//creado con éxito
+               //var_dump($id);//creado con éxito
             }else{
                 $id = $usuario-> getId();
                 $sql = "UPDATE USUARIO SET login=?, password=? WHERE id=?;";
@@ -64,7 +64,7 @@
                 $consultaPreparada->bind_param("ssi", $login, $password, $id);
                 $consultaPreparada-> execute();
                 $id = $conexion->insert_id;
-                var_dump($id);
+                //var_dump($id);
             }
             $conexion->close();
         }

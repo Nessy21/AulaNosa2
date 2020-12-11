@@ -32,8 +32,12 @@
             $consultaPreparada->bind_param("i", $id);
             $consultaPreparada->execute();
             $resultado = $consultaPreparada->get_result();
+            
             $filas = $resultado->fetch_array();
-            var_dump ($filas);
+            //poner como en listado alumnos
+            $al= new Alumno( $filas['id'], $filas['nombre'], $filas['apellidos'], $filas['fecha_nacimiento']);
+            return $al;
+            //var_dump ($filas);
             $conexion->close();
         }
 
@@ -54,7 +58,7 @@
                 $id = $conexion->insert_id;
                 //tenemos que actualizar el id de altaAlumno (que será cero para entrar en insert) e igualarlo con el id autoincremental de la bbdd
                 $alumno->setId($id);
-                var_dump($id);//creado con éxito
+                //var_dump($id);//creado con éxito
             }else{
                 $id = $alumno-> getId();
                 $sql = "UPDATE ALUMNO SET nombre=?, apellidos=?, fecha_nacimiento=? WHERE id=?;";
@@ -63,7 +67,7 @@
                 $consultaPreparada->bind_param("sssi", $nombre, $apellidos, $fecha, $id);
                 $consultaPreparada->execute();
                 $id = $conexion->insert_id;
-                var_dump($id);
+                //var_dump($id);
             }
             $conexion->close();
 

@@ -1,8 +1,8 @@
 <?php
     include_once "../CarpetaModelo/Autenticacion.php";
 
-    $user = $_POST['user'];//
-    $password = $_POST['password'];//
+    $user = $_POST['user'];
+    $password = $_POST['password'];
 
     //llamamos a la funcion autenticar usuario (pero esto ya lo hace usuDAO)
     $mc=new Autenticacion();
@@ -29,7 +29,7 @@
             $cont++;
             setcookie('numvisitas', $cont, time()+60);
         }
-        header ("Location: errorAutenticacion.php");
+        header ("Location: errorAutentificacion.php");
     }
     
 ?>

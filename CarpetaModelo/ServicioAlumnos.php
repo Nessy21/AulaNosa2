@@ -22,15 +22,24 @@
            return $variable;
         }
 
+        function modificarAlumno($al){
+            $alDAO = new AlumnoDAO();
+           $variable = $alDAO->guardarAlumno($al);
+         
+        }
+
         function usuarioExistente($usu){ //comprobación uno por uno en la bbdd//
             $usuDAO = new UsuarioDAO();
             if(isset($login)){//recorrer todos los login y si existe da error
-                    echo "El nombre de usuario ya existe. Vuelva a intentarlo con otro alias.";
+                echo "El nombre de usuario ya existe. Vuelva a intentarlo con otro alias.";
             }else{
-                    $usuDAO->guardarUsuario($usu);
+                $usuDAO->guardarUsuario($usu);
             }
         }
     
-        
+        function obtenerAlumnoId($id){
+            $alDAO = new AlumnoDAO();
+            return $alDAO->obtenerAlumno($id);
+        }
     }//class
 ?>
